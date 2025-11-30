@@ -1,0 +1,201 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 225 85% 7%;
+    --foreground: 0 0% 100%;
+    --font-sans: "Manrope", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: "Unbounded", "Manrope", "Segoe UI", system-ui, sans-serif;
+
+    --card: 225 85% 10%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 225 85% 8%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 0 100% 62%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 100% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 225 85% 15%;
+    --muted-foreground: 0 0% 75%;
+
+    --accent: 0 100% 62%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 225 85% 20%;
+    --input: 225 85% 15%;
+    --ring: 0 100% 62%;
+
+    --radius: 1rem;
+
+    --neon-red: 0 100% 62%;
+    --neon-blue: 220 100% 55%;
+    --deep-blue: 225 85% 7%;
+    
+    --glow-red: 0 100% 50%;
+    --glow-blue: 220 100% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: hidden;
+    font-family: var(--font-sans);
+    letter-spacing: 0.01em;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  .reveal-item {
+    opacity: 0;
+    transform: translateY(60px) scale(0.98);
+    transition:
+      opacity 1s cubic-bezier(0.23, 1, 0.32, 1),
+      transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal-item-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .reveal-item-up {
+    opacity: 0;
+    transform: translateY(-60px) scale(0.98);
+    transition:
+      opacity 1s cubic-bezier(0.23, 1, 0.32, 1),
+      transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal-item-up-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .hero-fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+      opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+      transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .hero-fade-in-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .neon-glow-red {
+    text-shadow: 0 0 10px hsl(var(--neon-red)),
+                 0 0 20px hsl(var(--neon-red)),
+                 0 0 30px hsl(var(--neon-red)),
+                 0 0 40px hsl(var(--glow-red));
+  }
+
+  .neon-glow-blue {
+    text-shadow: 0 0 10px hsl(var(--neon-blue)),
+                 0 0 20px hsl(var(--neon-blue)),
+                 0 0 30px hsl(var(--neon-blue));
+  }
+
+  .neon-border-red {
+    border: 1px solid hsl(var(--neon-red) / 0.4);
+    box-shadow: 0 0 20px hsl(var(--neon-red) / 0.5),
+                0 0 40px hsl(var(--neon-red) / 0.3),
+                0 0 60px hsl(var(--neon-red) / 0.2),
+                inset 0 0 10px hsl(var(--neon-red) / 0.2);
+  }
+
+  .neon-border-blue {
+    border: 1px solid hsl(var(--neon-blue) / 0.4);
+    box-shadow: 0 0 20px hsl(var(--neon-blue) / 0.5),
+                0 0 40px hsl(var(--neon-blue) / 0.3),
+                0 0 60px hsl(var(--neon-blue) / 0.2),
+                inset 0 0 10px hsl(var(--neon-blue) / 0.2);
+  }
+
+  .glass-panel {
+    background: hsl(var(--card) / 0.3);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--border) / 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+
+  .glass-panel-strong {
+    background: hsl(var(--card) / 0.5);
+    backdrop-filter: blur(30px);
+    border: 1px solid hsl(var(--border) / 0.5);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  .title-glow {
+    animation: title-glow-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes title-glow-pulse {
+    0%, 100% {
+      text-shadow: 0 0 10px hsl(var(--neon-red)),
+                   0 0 20px hsl(var(--neon-red)),
+                   0 0 30px hsl(var(--neon-red));
+    }
+    50% {
+      text-shadow: 0 0 20px hsl(var(--neon-red)),
+                   0 0 40px hsl(var(--neon-red)),
+                   0 0 60px hsl(var(--glow-red)),
+                   0 0 80px hsl(var(--glow-red));
+    }
+  }
+
+  .title-glow-blue {
+    animation: title-glow-pulse-blue 3s ease-in-out infinite;
+  }
+
+  @keyframes title-glow-pulse-blue {
+    0%, 100% {
+      text-shadow: 0 0 10px hsl(var(--neon-blue)),
+                   0 0 20px hsl(var(--neon-blue)),
+                   0 0 30px hsl(var(--neon-blue));
+    }
+    50% {
+      text-shadow: 0 0 20px hsl(var(--neon-blue)),
+                   0 0 40px hsl(var(--neon-blue)),
+                   0 0 60px hsl(var(--glow-blue)),
+                   0 0 80px hsl(var(--glow-blue));
+    }
+  }
+}
